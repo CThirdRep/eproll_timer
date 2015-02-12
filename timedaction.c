@@ -107,10 +107,11 @@ static timed_action_t* schedule_timer(timed_action_notifier* notifier, time_t se
     ev.data.ptr = action;
     if((epoll_ctl(notifier->epfd, EPOLL_CTL_ADD, action->tfd, &ev)) ==-1)
     {
+    	perror("epoll_ctl");
     	return NULL;
     }
 
-    timer_set_expiry(action->tfd, sec, nsec, sec, nsec);
+    timer_set_expiry(action->tfd, sec, nsec, intsec, intnsec);
 
     return action;
 }

@@ -46,8 +46,18 @@ void hey_cb(void* data)
 
 int main(void)
 {
+	timed_action_t *action2;
+	timed_action_t *action3;
+
     timed_action_notifier* notifier = timed_action_mainloop_threaded();
     if(notifier == NULL)
+    {
+    	printf("timed_action_mainloop_threaded error\n");
+    	exit(1);
+    }
+
+    timed_action_notifier* notifier2 = timed_action_mainloop_threaded();
+    if(notifier2 == NULL)
     {
     	printf("timed_action_mainloop_threaded error\n");
     	exit(1);
@@ -58,22 +68,23 @@ int main(void)
        return 0;
    }
 
-    int dat1 = 1;
-    if(timed_action_schedule_periodic(notifier, 1, 0, &hey_cb, &dat1) ==NULL){
-    	printf("timed_action_schedule_periodic error\n");
-    	exit(1);
-    }
-
+//    int dat1 = 1;
+//    if(timed_action_schedule_periodic(notifier, 0, 1000000, &hey_cb, &dat1) ==NULL){
+//    	printf("timed_action_schedule_periodic error\n");
+//    	exit(1);
+//    }
+//
     int dat2 = 2;
-    timed_action_schedule_periodic(notifier, 2, 0, &hey_cb, &dat2);
+    action2 = timed_action_schedule_periodic(notifier, 1, 0, &hey_cb, &dat2);
+//
+//
+//    int dat3 = 3;
+//    timed_action_schedule_periodic(notifier, 0, 1000000, &hey_cb, &dat3);
 
+    int otherdat = 3;
+    action3 = timed_action_schedule_periodic(notifier, 1, 0, &hey_cb, &otherdat);
 
-    int dat3 = 3;
-    timed_action_schedule_periodic(notifier, 3, 0, &hey_cb, &dat3);
-
-    int otherdat = 4;
-    timed_action_schedule(notifier, 5, 0, &hey_cb, &otherdat);
-
+    //timed_action_unschedule(notifier, action2);
     while(1);
 
     return 0;
