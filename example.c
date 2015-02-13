@@ -14,6 +14,8 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library.  If not, see <http://www.gnu.org/licenses/>.
  */
+//url: https://github.com/yanlunyao/eproll_timer.git
+
 #include "timedaction.h"
 #include <stdio.h>
 #include <stdlib.h>
